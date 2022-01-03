@@ -1,0 +1,26 @@
+{
+  "name": "xaf-fetch",
+  "version": "0.0.1",
+  "description": "Advanced Fetch System",
+  "main": "dist/xfx.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "esbuild src\\index.js --minify --bundle --outfile=dist\\xfx.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xafxafxaf/xaf-fetch.git"
+  },
+  "private": true,
+  "author": "xafxafxaf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xafxafxaf/xaf-fetch/issues"
+  },
+  "homepage": "https://github.com/xafxafxaf/xaf-fetch#readme",
+  "devDependencies": {
+    "esbuild": "^0.14.10"
+  }
+}
