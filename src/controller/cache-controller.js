@@ -1,4 +1,4 @@
-import localforage from "../../lib/localforage.min";
+import localforage from "localforage";
 
 /**
  * @type {LocalForage}

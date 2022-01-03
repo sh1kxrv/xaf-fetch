@@ -2,6 +2,10 @@ lockfileVersion: 5.3
 
 specifiers:
   esbuild: ^0.14.10
+  localforage: ^1.10.0
+
+dependencies:
+  localforage: 1.10.0
 
 devDependencies:
   esbuild: 0.14.10
@@ -176,3 +180,19 @@ packages:
       esbuild-windows-64: 0.14.10
       esbuild-windows-arm64: 0.14.10
     dev: true
+
+  /immediate/3.0.6:
+    resolution: {integrity: sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=}
+    dev: false
+
+  /lie/3.1.1:
+    resolution: {integrity: sha1-mkNrLMd0bKWd56QfpGmz77dr2H4=}
+    dependencies:
+      immediate: 3.0.6
+    dev: false
+
+  /localforage/1.10.0:
+    resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
+    dependencies:
+      lie: 3.1.1
+    dev: false

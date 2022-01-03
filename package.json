@@ -2,12 +2,10 @@
   "name": "xaf-fetch",
   "version": "0.0.1",
   "description": "Advanced Fetch System",
-  "main": "dist/xfx.js",
-  "directories": {
-    "lib": "lib"
-  },
+  "main": "lib/index.js",
+  "module": "lib/index.js",
   "scripts": {
-    "build": "esbuild src\\index.js --minify --bundle --outfile=dist\\xfx.js"
+    "build": "node ./esbuild.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +20,8 @@
   "homepage": "https://github.com/xafxafxaf/xaf-fetch#readme",
   "devDependencies": {
     "esbuild": "^0.14.10"
+  },
+  "dependencies": {
+    "localforage": "^1.10.0"
   }
 }
