@@ -47,6 +47,7 @@
  * @property {'GET'|'HEAD'|'POST'|'PUT'|'DELETE'|'CONNECT'|'OPTIONS'|'TRACE'|'PATCH'} method
  * @property {object} headers
  * @property {object} body
+ * @property {*} dynamic
  * @property {CancelFunction} cancel - отмена фетча
  * @property {IsCancelledFunction} isCancelled - проверить состояние isCanceled
  * @property {*} overrideObject - возвращается в случае отмены фетча

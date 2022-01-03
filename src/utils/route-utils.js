@@ -3,7 +3,7 @@ export class RouteFactory {
    * @param {string} route
    */
   constructor(route) {
-    this.route = route
+    this.route = route;
   }
 
   /**
@@ -12,19 +12,19 @@ export class RouteFactory {
    * @returns {string}
    */
   path(path) {
-    return `${this.route}/${path}`
+    return `${this.route}${path}`;
   }
 
   /**
    * @type {string | null}
    */
-  route = null
+  route = null;
 
   /**
    * @param {string} route
    * @returns {RouteFactory}
    */
   static route(url, route) {
-    return new RouteFactory(`${url}/${route}`)
+    return new RouteFactory(`${url}/${route}`);
   }
 }

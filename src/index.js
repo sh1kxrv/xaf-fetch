@@ -50,7 +50,15 @@ export class XafFetch {
     }
 
     return (async () => {
-      const resp = await fetch(fetchOptions.url, fetchOptions)
+      const resp = await fetch(fetchOptions.url, {
+        body: JSON.stringify(fetchOptions.body),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          ...fetchOptions.headers,
+        },
+        method: fetchOptions.method,
+        ...fetchOptions.dynamic,
+      })
       const json = await resp.json()
       await this.#modules.execute('postfetch', fetchOptions, json, resp)
 
@@ -64,8 +72,12 @@ export class XafFetch {
    * @param {*} headers
    * @returns {Promise<FetchResponse>}
    */
-  get(url, headers = {}, { cacheForce = false, cacheExclude = false } = {}) {
-    headers = this.headersCache(headers, cacheForce, cacheExclude)
+  get(
+    url,
+    { cacheForce = false, cacheExclude = false, token = null } = {},
+    headers = {}
+  ) {
+    headers = this.headersCache(headers, cacheForce, cacheExclude, token)
     return this.request({ method: 'GET', url, headers })
   }
 
@@ -78,11 +90,11 @@ export class XafFetch {
    */
   post(
     url,
-    body = null,
-    headers = {},
-    { cacheForce = false, cacheExclude = false } = {}
+    body = {},
+    { cacheForce = false, cacheExclude = false, token = null } = {},
+    headers = {}
   ) {
-    headers = this.headersCache(headers, cacheForce, cacheExclude)
+    headers = this.headersCache(headers, cacheForce, cacheExclude, token)
     return this.request({ method: 'POST', url, headers, body })
   }
 
@@ -96,10 +108,10 @@ export class XafFetch {
   put(
     url,
     body = null,
-    headers = {},
-    { cacheForce = false, cacheExclude = false } = {}
+    { cacheForce = false, cacheExclude = false, token = null } = {},
+    headers = {}
   ) {
-    headers = this.headersCache(headers, cacheForce, cacheExclude)
+    headers = this.headersCache(headers, cacheForce, cacheExclude, token)
     return this.request({ method: 'PUT', url, headers, body })
   }
 
@@ -113,10 +125,10 @@ export class XafFetch {
   delete(
     url,
     body = null,
-    headers = {},
-    { cacheForce = false, cacheExclude = false } = {}
+    { cacheForce = false, cacheExclude = false, token = null } = {},
+    headers = {}
   ) {
-    headers = this.headersCache(headers, cacheForce, cacheExclude)
+    headers = this.headersCache(headers, cacheForce, cacheExclude, token)
     return this.request({ method: 'DELETE', url, headers, body })
   }
 
@@ -127,8 +139,12 @@ export class XafFetch {
    * @param {*} body
    * @returns {Promise<FetchResponse>}
    */
-  head(url, headers = {}, { cacheForce = false, cacheExclude = false } = {}) {
-    headers = this.headersCache(headers, cacheForce, cacheExclude)
+  head(
+    url,
+    { cacheForce = false, cacheExclude = false, token = null } = {},
+    headers = {}
+  ) {
+    headers = this.headersCache(headers, cacheForce, cacheExclude, token)
     return this.request({ method: 'HEAD', url, headers, body })
   }
 
@@ -156,9 +172,15 @@ export class XafFetch {
     return RouteFactory.route(url, route)
   }
 
-  headersCache(headers, cacheForce = false, cacheExclude = false) {
+  headersCache(
+    headers,
+    cacheForce = false,
+    cacheExclude = false,
+    token = null
+  ) {
     if (cacheForce) headers['Force-Cache-Control'] = 'force'
     if (cacheExclude) headers['Cache-Control'] = 'no-cache'
+    if (token) headers['Authorization'] = token
     return headers
   }
 
@@ -168,7 +190,7 @@ export class XafFetch {
    */
   #validateOptions(options) {
     if (!options.headers) options.headers = {}
-    if (options.method !== 'GET') options.body = {}
+    if (!options.dynamic) options.dynamic = {}
   }
 
   /**
